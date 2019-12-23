@@ -9,7 +9,7 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var pointsRouter = require('./routes/points');
+var pointsRouter = require('./routes/interestPoints');
 
 var options = {
     useUnifiedTopology: true,
