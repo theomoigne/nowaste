@@ -9,18 +9,17 @@ var getInterestPoints = async () => {
     }
 }
 
-var getInterestPointsFollowPosition = async (rangePosition) => {
+var getInterestPointsFollowPosition = async (geoPoint, maxDistance) => {
     try {
-        return await InterestPoint.find({
-            "coordinates.0": {
-                $range: rangePosition.lng
-            },
-            "coordinates.1": {
-                $range: rangePosition.lat
+        return await InterestPoint.findOne({
+            "geometry": {
+                $near: {
+                    $geometry: geoPoint.geometry,
+                    $maxDistance: maxDistance
+                },
             }
         }).exec();
     } catch (err) {
-        console.log(err);
         throw err;
     }
 }
