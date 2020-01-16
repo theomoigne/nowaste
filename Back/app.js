@@ -11,10 +11,10 @@ var usersRouter = require('./routes/users');
 var pointsRouter = require('./routes/interestPoints');
 
 var options = {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true
 }
-mongoose.connect(process.env.API_URL, options);
+mongoose.connect(process.env.MONGO_KEY, options);
 
 var app = express();
 
