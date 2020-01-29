@@ -6,16 +6,15 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 require('dotenv').config();
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var pointsRouter = require('./routes/points');
+var pointsRouter = require('./routes/interestPoints');
 
 var options = {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true
 }
-mongoose.connect(process.env.API_URL, options);
+mongoose.connect(process.env.MONGO_KEY, options);
 
 var app = express();
 
@@ -41,6 +40,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  console.log(err);
   res.status(err.status || 500);
   res.end();
 });
