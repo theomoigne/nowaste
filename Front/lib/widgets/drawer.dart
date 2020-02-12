@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/home.dart';
+import '../pages/marker_anchor.dart';
 
 Drawer buildDrawer(BuildContext context, String currentRoute) {
   return Drawer(
@@ -18,7 +19,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
             Navigator.pushReplacementNamed(context, HomePage.route);
           },
         ),
-        
+        ListTile(
+          title: const Text('Marker Anchors'),
+          selected: currentRoute == MarkerAnchorPage.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, MarkerAnchorPage.route);
+          },
+        ),
       ],
     ),
   );

@@ -7,6 +7,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
 import './pages/home.dart';
+import './pages/marker_anchor.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(),
       routes: <String, WidgetBuilder>{
-        //MarkerAnchorPage.route: (context) => MarkerAnchorPage(),
+        MarkerAnchorPage.route: (context) => MarkerAnchorPage(),
         //PluginPage.route: (context) => PluginPage(),
         //OfflineMapPage.route: (context) => OfflineMapPage(),
         //MovingMarkersPage.route: (context) => MovingMarkersPage(),
