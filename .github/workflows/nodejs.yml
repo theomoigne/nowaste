@@ -1,50 +1,79 @@
 name: Node.js CI
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  TOKEN_UNKOWN_TEST: ${{ secrets.TOKEN_UNKOWN_TEST }}
+  TOKEN_OLD_TEST: ${{ secrets.TOKEN_OLD_TEST }}
+  JWTSECRETKEY: ${{ secrets.JWTSECRETKEY }}
+  NODE_ENV: test
+  DB_HOST: "::1"
+  DB_USER: developer
+  DB_PASSWORD: rootPowa
+  DB_NAME: test
+  DB_PORT: 3307
   CI: true
 
 on:
   pull_request:
-    branches-ignore:
+    branches:
       - master
-    env:
-      CD: false
+      - 'Back*'
+      - 'Front*'  
   push:
     branches:
       - master
-    env:
-      CD: true
-    
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.17.0]
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MYSQL_USER: developer
+          MYSQL_PASSWORD: rootPowa
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 3307:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
+
       - uses: actions/checkout@v2
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v2 
-        with:
-          prefix: nowaste
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
+
+      # - name: Generate build number
+      #   id: buildnumber
+      #   uses: einaregilsson/build-number@v2 
+      #   with:
+      #     prefix: nowaste
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Shutdown Ubuntu MySQL (SUDO)
+      #   run: sudo service mysql stop
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          
+
+      - name: Restat Ubuntu MySQL Service (SUDO)
+        run: sudo service mysql restart
+
+      - name: Setup MariaDB data
+        working-directory: ./Back
+        run: mysql -h"127.0.0.1" -P"3307" -u developer -prootPowa test < './models/database/exportDB.sql'
+
       - name: Install Node.js Application 
         working-directory: ./Back
         run: npm install
-        
+
       - name: Build Node.js Application 
         working-directory: ./Back
         run: npm run build --if-present
-        
+
       - name: Test Node.js Application 
         working-directory: ./Back
         run: npm test
-

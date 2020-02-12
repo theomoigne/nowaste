@@ -1,36 +1,37 @@
-var User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const db = require('./databaseMariaFactory');
+const UserModel = require('../models/userModel');
+const authentification = require('../middlewares/authentification');
 
-var createNewUser = async (userData) => {
+const createNewUser = async (userData) => {
     try {
-        var user = new User(userData);
-        user.token = getNewToken(user.id);
-        await user.save();
-        return user.token;
+        var user = UserModel.newUser(userData);
+        user.password = await authentification.hashPassword(user.password);
+        var query = `INSERT INTO users (name, email, password, creation_date) values ('${user.name}', '${user.email}', '${user.password}', CURRENT_TIMESTAMP())`;
+        await db.query(query);
+        
+        // TODO DB function to return id generated
+        query = `select * from users where email='${user.email}'`;
+        var res = await db.queryOne(query);
+
+        return authentification.getNewToken(res.id);
     } catch (e) {
+        console.log(e);
+        if(e.code == 'ER_DUP_ENTRY')
+            throw new Error(`500 : ${user.email} is already register`);
+        throw new Error('500 : Fails to create new user');
     }
 }
 
-var login = async (user) => {
+const login = async (userData, authorization) => {
     try {
-        var userFound = await User.findOne({'email': user.email});
-        var match = !(await bcrypt.compare(user.password, userFound.password));
-
-        if(user.password && match) {
-            throw new Error('401 : NotConnected - Wrong email and password');
-        }
-
-        return getNewToken(userFound.id);
+        var user = UserModel.newUser(userData, authorization);
+        return await authentification.match(user);
     } catch (error) {
         throw error;
     }
 }
 
-var getNewToken = (id) => 'Bearer ' + jwt.sign({ _id: id.toString() }, process.env.JWTSECRETKEY, { expiresIn: "7 days" });
-
-
 module.exports = {
     createNewUser,
     login
-}
+};
