@@ -29,7 +29,7 @@ class MarkerAnchorPageState extends State<MarkerAnchorPage> {
     }).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Tap to add pins')),
+      appBar: AppBar(title: Text("Points dintérêt")),
       drawer: buildDrawer(context, MarkerAnchorPage.route),
       body: Padding(
         padding: EdgeInsets.all(8.0),
@@ -37,12 +37,12 @@ class MarkerAnchorPageState extends State<MarkerAnchorPage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text('Tap to add pins'),
+              child: Text('Appuyer pour ajouter un marqueur'),
             ),
             Flexible(
               child: FlutterMap(
                 options: MapOptions(
-                    center: LatLng(45.5231, -122.6765),
+                    center: LatLng(51.5, -0.09),
                     zoom: 5,
                     onTap: _handleTap),
                 layers: [

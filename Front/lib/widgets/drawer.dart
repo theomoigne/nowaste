@@ -13,14 +13,14 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           ),
         ),
         ListTile(
-          title: const Text('OpenStreetMap'),
+          title: const Text('Carte'),
           selected: currentRoute == HomePage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, HomePage.route);
           },
         ),
         ListTile(
-          title: const Text('Marker Anchors'),
+          title: const Text("Points d'intérêt "),
           selected: currentRoute == MarkerAnchorPage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, MarkerAnchorPage.route);
