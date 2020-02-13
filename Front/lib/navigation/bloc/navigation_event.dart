@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:nowaste/src/models/contact.dart';
+import 'package:nowaste/models/contact.dart';
 
 abstract class NavigationEvent extends Equatable {
   const NavigationEvent();
@@ -33,7 +33,6 @@ class ShowInterestPoint extends NavigationEvent {
 
 class ShowFavourites extends NavigationEvent {
   @override
-  // TODO: implement props
   List<Object> get props => [this];
 
 }

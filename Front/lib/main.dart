@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowaste/navigation/bloc/navigation.dart';
 import 'package:nowaste/splash/splash_page.dart';
 
-import 'widgets/contactList.dart';
+import 'widgets/contacts.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override

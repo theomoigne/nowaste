@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowaste/navigation/bloc/navigation.dart';
-import 'package:nowaste/src/models/contact.dart';
+import 'package:nowaste/models/contact.dart';
 
 class Contacts extends StatelessWidget {
   final List<Contact> contacts;

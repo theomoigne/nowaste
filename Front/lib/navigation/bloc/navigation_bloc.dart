@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:nowaste/navigation/bloc/navigation.dart';
-import 'package:nowaste/src/models/contact.dart';
+import 'package:nowaste/models/contact.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   var contacts = [
@@ -31,9 +31,9 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       contacts = contacts
         .map(
           (e) =>
-              e != contact ? 
-                e :
-                new Contact(contact.name, !contact.isFavourite)
+              e != contact
+                ? e
+                : new Contact(contact.name, !contact.isFavourite)
         ).toList();
       yield AppInitialized(contacts);
     } else if (event is ShowFavourites) {

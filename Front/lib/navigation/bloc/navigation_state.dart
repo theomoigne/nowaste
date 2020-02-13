@@ -1,4 +1,4 @@
-import 'package:nowaste/src/models/contact.dart';
+import 'package:nowaste/models/contact.dart';
 
 abstract class NavigationState {
   const NavigationState();
