@@ -1,74 +1,109 @@
 import 'dart:developer';
 
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nowaste/navigation/bloc/navigation.dart';
 import 'package:nowaste/src/models/contact.dart';
 import 'package:nowaste/src/screens/favouritesContacts.dart';
+import 'package:nowaste/splash/splash_page.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
+class SimpleBlocDelegate extends BlocDelegate {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Contacts()
-    );
+  void onEvent(Bloc bloc, Object event) {
+    super.onEvent(bloc, event);
+    print(event);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+
+  @override
+  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
+    super.onError(bloc, error, stacktrace);
+    print(error);
   }
 }
 
-class Contacts extends StatefulWidget {
-  Contacts({Key key}) : super(key: key);
-
-  @override
-  _ContactsState createState() => _ContactsState();
+void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(
+    BlocProvider<NavigationBloc>(
+      create: (context) {
+        return NavigationBloc()..add(AppStarted());
+      },
+      child: App(),
+    ),
+  );
 }
 
-class _ContactsState extends State<Contacts> {
-  final _contacts = <Contact>[new Contact("toto"), new Contact("tata"), new Contact("titi")];
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Welcome to Flutter',
+        // Contacts()
+        home: BlocBuilder<NavigationBloc, NavigationState>(
+          builder: (context, state) {
+            if (state is AppNotInitialized) {
+              return SplashPage();
+            }
+            if (state is AppInitialized) {
+              return Contacts(state.contacts);
+            }
+          },
+        ));
+  }
+}
+
+class Contacts extends StatelessWidget {
+  final contacts;
   final _favouriteContacts = Set<Contact>();
   final _fontSize = const TextStyle(fontSize: 18);
-  
+
+  Contacts({@required this.contacts});
+
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('My contact App'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.list),
-              onPressed: _showFavouriteContact,
-            )
-          ],
-        ),
-        body: Center(
-          child: _buildContactList(),
-        ),
+      appBar: AppBar(
+        title: Text('My contact App'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: _showFavouriteContact,
+          )
+        ],
+      ),
+      body: Center(
+        child: _buildContactList(),
+      ),
     );
   }
 
   Widget _buildContactList() {
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: _contacts.length,
-      itemBuilder: (context, i) {
+        padding: const EdgeInsets.all(16.0),
+        itemCount: _contacts.length,
+        itemBuilder: (context, i) {
           return _buildContactLine(_contacts[i]);
-      });
+        });
   }
 
   Widget _buildContactLine(Contact contact) {
     final bool isFavourite = _favouriteContacts.contains(contact);
     return ListTile(
-      title: Text(
-        contact.name,
-        style: _fontSize
-      ),
+      title: Text(contact.name, style: _fontSize),
       trailing: Icon(
         isFavourite ? Icons.favorite : Icons.favorite_border,
         color: isFavourite ? Colors.red : null,
       ),
-      onTap: (){
+      onTap: () {
         setState(() {
-          if(isFavourite) {
+          if (isFavourite) {
             _favouriteContacts.remove(contact);
           } else {
             _favouriteContacts.add(contact);
@@ -78,7 +113,7 @@ class _ContactsState extends State<Contacts> {
     );
   }
 
-  void addContat(var name){
+  void addContat(var name) {
     _contacts.add(new Contact(name));
   }
 
@@ -86,26 +121,25 @@ class _ContactsState extends State<Contacts> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
-          final Iterable<ListTile> tiles =
-            _favouriteContacts.map(
-              (Contact contact) {
-                return ListTile(
-                  title: Text(
-                    contact.name,
-                    style: _fontSize,
-                  ),
-                );
-              },
-            );
-          
-          final List<Widget> divided = ListTile
-            .divideTiles(
-              context: context,
-              tiles: tiles,
-            )
-            .toList();
+          final Iterable<ListTile> tiles = _favouriteContacts.map(
+            (Contact contact) {
+              return ListTile(
+                title: Text(
+                  contact.name,
+                  style: _fontSize,
+                ),
+              );
+            },
+          );
 
-          return FavouriteContacts(favouriteContacts: divided,);
+          final List<Widget> divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return FavouriteContacts(
+            favouriteContacts: divided,
+          );
         },
       ),
     );
