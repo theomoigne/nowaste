@@ -1,24 +1,16 @@
+import 'package:nowaste/src/models/contact.dart';
 
-import 'package:flutter/material.dart';
-import 'package:equatable/equatable.dart';
-
-abstract class NavigationState extends Equatable {
+abstract class NavigationState {
   const NavigationState();
 }
 
 class AppNotInitialized extends NavigationState {
-  @override
-  List<Object> get props => [this];
 }
 
 class AppInitialized extends NavigationState {
-  final dynamic contacts;
-  AppInitialized({@required this.contacts});
-  @override
-  List<Object> get props => [this.contacts];
+  final List<Contact> contacts;
+
+  AppInitialized(this.contacts);
 }
 
-class MapShown extends NavigationState {
-  @override
-  List<Object> get props => [this];
-}
+class MapShown extends NavigationState {}

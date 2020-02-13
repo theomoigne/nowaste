@@ -13,8 +13,8 @@ import 'package:nowaste/src/models/contact.dart';
 
 void main() {
   testWidgets('favourite smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    // Will fails
+    await tester.pumpWidget(App());
 
     // Verify that our counter starts at 0.
     expect(find.text('toto'), findsOneWidget);

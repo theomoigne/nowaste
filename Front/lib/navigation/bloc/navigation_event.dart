@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:nowaste/src/models/contact.dart';
 
 abstract class NavigationEvent extends Equatable {
   const NavigationEvent();
@@ -8,6 +9,15 @@ abstract class NavigationEvent extends Equatable {
 class AppStarted extends NavigationEvent {
   @override
   List<Object> get props => [this];
+}
+
+class SwitchFaourite extends NavigationEvent {
+  final Contact contact;
+
+  SwitchFaourite(this.contact);
+
+  @override
+  List<Object> get props => [contact];
 }
 
 class ShowMap extends NavigationEvent {
@@ -19,4 +29,11 @@ class ShowInterestPoint extends NavigationEvent {
   // final Point point;
   @override
   List<Object> get props => [this]; //=> [point];
+}
+
+class ShowFavourites extends NavigationEvent {
+  @override
+  // TODO: implement props
+  List<Object> get props => [this];
+
 }
