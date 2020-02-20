@@ -1,16 +1,9 @@
-import 'package:nowaste/models/contact.dart';
-
 abstract class NavigationState {
   const NavigationState();
 }
 
-class AppNotInitialized extends NavigationState {
-}
+class AppNotInitialized extends NavigationState {}
 
-class AppInitialized extends NavigationState {
-  final List<Contact> contacts;
-
-  AppInitialized(this.contacts);
-}
+class AppInitialized extends NavigationState {}
 
 class MapShown extends NavigationState {}
