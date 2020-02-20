@@ -11,7 +11,7 @@ class Position {
   Position(this.lat, this.lng);
 
   String getCoordinateSentence() {
-    return 'Vous êtes situé sur les coordoonées : (${lat}, ${lng}).';
+    return 'Vous êtes situé sur les coordoonées : ($lat, $lng).';
   }
 }
 
@@ -45,11 +45,8 @@ class HomePage extends StatelessWidget {
                 layers: [
                   TileLayerOptions(
                     urlTemplate:
-                        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                     subdomains: ['a', 'b', 'c'],
-                    // For example purposes. It is recommended to use
-                    // TileProvider with a caching and retry strategy, like
-                    // NetworkTileProvider or CachedNetworkTileProvider
                     tileProvider: NetworkTileProvider(),
                   ),
                   MarkerLayerOptions(markers: markers)
