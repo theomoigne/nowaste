@@ -6,9 +6,9 @@ abstract class MapEvent {}
 class MapInitializationEvent extends MapEvent {}
 
 class MapShowPointsEvent extends MapEvent {
-  final bool isChecked;
+  final bool mustShowPoints;
   
-  MapShowPointsEvent(this.isChecked);
+  MapShowPointsEvent(this.mustShowPoints);
 }
 
 class MapAddPointEvent extends MapEvent {

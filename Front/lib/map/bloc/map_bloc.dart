@@ -20,7 +20,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) async* {
 
     if(event is MapShowPointsEvent) {
-      pointsAreVisible = event.isChecked;
+      pointsAreVisible = event.mustShowPoints;
     }
 
     if(event is MapAddPointEvent && pointsAreVisible) {
@@ -34,4 +34,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     var points = pointsAreVisible ? interesPoints : List<LatLng>();
     return MapDisplayState(points, pointsAreVisible);
   }
+
+  void dispose() {}
 }
