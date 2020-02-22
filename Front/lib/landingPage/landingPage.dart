@@ -20,12 +20,13 @@ class LandingPage extends StatelessWidget {
                 onPressed: () => 
                   _landingPageBloc.add(DownloadAPKEvent()),
                 borderSide: BorderSide(
-                  color: Colors.blueAccent,
+                  color: Colors.lightGreen,
                   style: BorderStyle.solid,
                   width: 2
                 ),
-                hoverColor: Colors.green,
-                textColor: Colors.green,
+                hoverColor: Colors.lightBlue[60],
+                highlightedBorderColor: Colors.lightGreen,
+                textColor: Colors.lightGreen,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
