@@ -21,10 +21,6 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Flutter__Upgrade
-      working-directory: ./Front
-      run: flutter upgrade
-
     - name: Flutter__Pub__Get
       working-directory: ./Front
       run: flutter pub get
