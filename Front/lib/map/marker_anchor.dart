@@ -13,7 +13,7 @@ class MarkerAnchorPage extends StatefulWidget {
 }
 
 class MarkerAnchorPageState extends State<MarkerAnchorPage> {
- List<LatLng> tappedPoints = [];
+  List<LatLng> tappedPoints = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,10 @@ class MarkerAnchorPageState extends State<MarkerAnchorPage> {
             Flexible(
               child: FlutterMap(
                 options: MapOptions(
-                    center: LatLng(51.5, -0.09),
-                    zoom: 5,
-                    onTap: _handleTap),
+                  center: LatLng(51.5, -0.09),
+                  zoom: 5,
+                  onLongPress: _handleTap
+                ),
                 layers: [
                   TileLayerOptions(
                     urlTemplate:

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import './pages/home.dart';
+import 'package:nowaste/map/map.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowaste/navigation/bloc/navigation.dart';
 import 'package:nowaste/splash/splash_page.dart';
@@ -22,8 +22,7 @@ class App extends StatelessWidget {
         home: BlocBuilder<NavigationBloc, NavigationState>(
           builder: (BuildContext context, NavigationState state) {
             if (state is AppInitialized) {
-              return HomePage();
-              //return Contacts();
+              return Map();
             }
             return SplashPage();
           }
@@ -33,28 +32,7 @@ class App extends StatelessWidget {
   }
 }
 
-// class MyApp extends StatelessWidget {
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'NoWaste Map',
-//       theme: ThemeData(
-//         primarySwatch: mapBoxBlue,
-//       ),
-//       home: HomePage(),
-//       routes: <String, WidgetBuilder>{
-//         MarkerAnchorPage.route: (context) => MarkerAnchorPage(),
-//         //PluginPage.route: (context) => PluginPage(),
-//         //OfflineMapPage.route: (context) => OfflineMapPage(),
-//         //MovingMarkersPage.route: (context) => MovingMarkersPage(),
-
-//       },
-//     );
-//   }
-// }
-
-
+/// Maybe useful to extract following code into style app configuration  ?
 // const int _bluePrimary = 0xFF395afa;
 // const MaterialColor mapBoxBlue = MaterialColor(
 //   _bluePrimary,
@@ -71,21 +49,3 @@ class App extends StatelessWidget {
 //     900: Color(0xFF172EF6),
 //   },
 // );
-
-// Widget build(BuildContext context) {
-//   return new FlutterMap(
-//     options: new MapOptions(
-//       center: new LatLng(51.5, -0.09),
-//       zoom: 13.0,
-//     ),
-//     layers: [
-//       new TileLayerOptions(
-//         urlTemplate: "https://api.tiles.mapbox.com/v4/"
-//             "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-//         additionalOptions: {
-//           'accessToken': '<PUT_ACCESS_TOKEN_HERE>',
-//           'id': 'mapbox.streets',
-//         },
-//       ),
-//     ],
-//   );

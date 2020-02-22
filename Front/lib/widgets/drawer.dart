@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../pages/home.dart';
-import '../pages/marker_anchor.dart';
+import 'package:nowaste/map/map.dart';
+import 'package:nowaste/map/marker_anchor.dart';
 
 Drawer buildDrawer(BuildContext context, String currentRoute) {
   return Drawer(
@@ -14,9 +14,9 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
         ),
         ListTile(
           title: const Text('Carte'),
-          selected: currentRoute == HomePage.route,
+          selected: currentRoute == Map.route,
           onTap: () {
-            Navigator.pushReplacementNamed(context, HomePage.route);
+            Navigator.pushReplacementNamed(context, Map.route);
           },
         ),
         ListTile(
