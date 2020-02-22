@@ -9,9 +9,10 @@ on:
       - 'v0.*'
   pull_request:
 jobs:
-
   test:
     runs-on: ubuntu-latest
+    container:
+      image:  google/dart:latest
     name: Build and run tests
     steps:
     - uses: actions/checkout@v1
@@ -22,13 +23,13 @@ jobs:
       with:
         flutter-version: '1.7.8+hotfix.4'
 
-    - name: Flutter__Pub__Get
-      working-directory: ./Front
-      run: flutter pub get
-
     - name: Flutter__Upgrade
       working-directory: ./Front
       run: flutter upgrade
+
+    - name: Flutter__Pub__Get
+      working-directory: ./Front
+      run: flutter pub get
 
     - name: Flutter__Test
       working-directory: ./Front
