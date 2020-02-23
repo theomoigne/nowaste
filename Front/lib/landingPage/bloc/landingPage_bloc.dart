@@ -1,6 +1,7 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 part 'landingPage_event.dart';
 part 'landingPage_state.dart';
 
@@ -13,7 +14,7 @@ class LandingPageBloc extends Bloc<LandingPageEvent, LandingPageState> {
     LandingPageEvent event,
   ) async* {
     if(event is DownloadAPKEvent) {
-      // call repo here
+      launch("https://nowaste.jaslieb.com/downloads");
       yield DownloadAPKState(true);
     }
   }

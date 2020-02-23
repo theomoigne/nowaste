@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.end();
+  res.redirect('/web/');
 });
 
 router.get('/downloads', function (req, res, next) {

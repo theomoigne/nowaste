@@ -31,9 +31,9 @@ class LandingPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.android),
+                    Icon(Icons.file_download),
                     SizedBox(width: 10),
-                    Text("Click here to download Nowaste Android app ! "),
+                    Icon(Icons.android),
                   ],
                 )
               ),
