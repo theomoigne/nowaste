@@ -1,11 +1,19 @@
-name: flutter_map_example
-description: A new Flutter project.
+name: nowaste
+description: nowaste project
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^0.1.0
   flutter_map: ^0.8.0
+  bloc: ^3.0.0
+  flutter_bloc: ^3.2.0
+  equatable: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -13,4 +21,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
- 
