@@ -2,8 +2,8 @@ abstract class NavigationState {
   const NavigationState();
 }
 
-class AppNotInitialized extends NavigationState {}
+class AppNotInitializedState extends NavigationState {}
 
-class AppInitialized extends NavigationState {}
+class AppInitializedState extends NavigationState {}
 
-class MapShown extends NavigationState {}
+class WebAppInitializedState extends NavigationState {}

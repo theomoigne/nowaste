@@ -1,6 +1,9 @@
 # Env file
 *.env
 
+# Downloads folder
+*/downloads/
+
 # Miscellaneous
 *.class
 *.lock

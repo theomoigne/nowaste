@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:nowaste/map/map.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nowaste/utils/delegates.dart';
 import 'package:nowaste/navigation/bloc/navigation.dart';
 import 'package:nowaste/splash/splash_page.dart';
-import 'package:nowaste/utils/delegates.dart';
+import 'package:nowaste/landingPage/landingPage.dart';
+import 'package:nowaste/map/map.dart';
 
 
 void main() async {
@@ -21,8 +22,10 @@ class App extends StatelessWidget {
         title: 'Welcome to Flutter',
         home: BlocBuilder<NavigationBloc, NavigationState>(
           builder: (BuildContext context, NavigationState state) {
-            if (state is AppInitialized) {
+            if (state is AppInitializedState) {
               return Map();
+            } else if (state is WebAppInitializedState ) {
+              return LandingPage();
             }
             return SplashPage();
           }
