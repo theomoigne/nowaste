@@ -6,6 +6,7 @@ var logger = require('./middlewares/logger');
 
 var indexRouter = require('./routes/indexRoute');
 var usersRouter = require('./routes/usersRoute');
+var mapRouter = require('./routes/mapRoute');
 var pointsRouter = require('./routes/interestPointsRoute');
 
 var app = express();
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api/map', mapRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/points', pointsRouter);
 

@@ -22,9 +22,11 @@ router.post('/login', async function (req, res, next) {
     if(!error.message.includes('401') && !error.message.includes('401')) {
       error.message = '500 : Error occured - Please try again';
     }
-    next(error);
-    if(error.message.includes('TokenExpiredError'))
+
+    if(error.message.includes('TokenExpiredError')) {
       res.redirect('/users/login');
+    } else
+        next(error);
   }
 });
 
