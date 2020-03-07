@@ -1,4 +1,4 @@
-package com.example.nowaste
+package com.jaslieb.nowaste
 
 import android.os.Bundle
 

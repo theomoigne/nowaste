@@ -52,11 +52,13 @@ class Map extends StatelessWidget {
                     onLongPress: _handleLongPress
                   ),
                   layers: [
-                    TileLayerOptions(
-                      urlTemplate:
-                        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      subdomains: ['a', 'b', 'c'],
-                      tileProvider: NetworkTileProvider(),
+                    new TileLayerOptions(
+                      urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                          "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                      additionalOptions: {
+                        'accessToken': 'pk.eyJ1IjoiamFzbGllYiIsImEiOiJjazdoYmR4emswN3lqM2RvMmllazYycndwIn0.Qx1nAJgFvfA4uCb0-YlYLQ',
+                        'id': 'mapbox.streets',
+                      },
                     ),
                     MarkerLayerOptions(markers: markers)
                   ],
