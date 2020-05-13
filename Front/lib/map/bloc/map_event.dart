@@ -5,6 +5,8 @@ abstract class MapEvent {}
 
 class MapInitializationEvent extends MapEvent {}
 
+class MapMakeStateEvent extends MapEvent {}
+
 class MapShowPointsEvent extends MapEvent {
   final bool mustShowPoints;
   

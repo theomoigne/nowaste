@@ -79,8 +79,8 @@ class Map extends StatelessWidget {
   List<Marker> _makeMarkers(List<LatLng> points) =>
       points.map( (latlng) =>
         Marker(
-          width: 80.0,
-          height: 80.0,
+          width: 32,
+          height: 32,
           point: latlng,
           builder: (ctx) => Container(
             child: FlutterLogo(),
