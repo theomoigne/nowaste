@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:nowaste/map/bloc/map_bloc.dart';
@@ -57,7 +58,7 @@ class Map extends StatelessWidget {
                         urlTemplate: "https://api.tiles.mapbox.com/v4/"
                             "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                         additionalOptions: {
-                          'accessToken': 'pk.eyJ1IjoiamFzbGllYiIsImEiOiJjazdoYmR4emswN3lqM2RvMmllazYycndwIn0.Qx1nAJgFvfA4uCb0-YlYLQ',
+                          'accessToken': DotEnv().env['MAP_BOX_TOKEN'],
                           'id': 'mapbox.streets',
                         },
                       ),
@@ -77,15 +78,16 @@ class Map extends StatelessWidget {
     _mapBloc.add(MapAddPointEvent(point));
   }
 
-  List<Marker> _makeMarkers(List<LatLng> points) =>
-      points.map( (latlng) =>
-        Marker(
-          width: 32,
-          height: 32,
-          point: latlng,
-          builder: (ctx) => Container(
-            child: FlutterLogo(),
-          ),
-        )
-      ).toList();
+  List<Marker> _makeMarkers(List<LatLng> points) {
+    return points
+      .map( (latlng) => Marker(
+        width: 32,
+        height: 32,
+        point: latlng,
+        builder: (ctx) => Container(
+          child: FlutterLogo(),
+        ),
+      ))
+      .toList();
+  }
 }
