@@ -1,5 +1,6 @@
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 name: Test, Build and Release apk
 on:
   push:
@@ -20,6 +21,12 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         channel: 'stable'
+    
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        MAP_BOX_TOKEN: ${{ secrets.MAP_BOX_TOKEN }}  
+        file_name: Front/.env
 
     - name: Flutter__Pub__Get
       working-directory: ./Front
