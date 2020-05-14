@@ -27,46 +27,47 @@ class Map extends StatelessWidget {
           }
 
           return Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: Text(position.getCoordinateSentence()),
-              ),
-              Row(
-                children:[ 
-                  ToggleButtons(
-                    children: <Widget>[
-                      Icon(Icons.info_outline)
-                    ],
-                    onPressed: (_) => _mapBloc..add(MapShowPointsEvent(!state.pointsAreVisible)), 
-                    isSelected: [state.pointsAreVisible],
-                ),]
-              ),
-              Flexible(
-                child: FlutterMap(
-                  options: MapOptions(
-                    center: LatLng(position.lat, position.lng),
-                    zoom: 5.0,
-                    onLongPress: _handleLongPress
-                  ),
-                  layers: [
-                    new TileLayerOptions(
-                      urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                          "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                      additionalOptions: {
-                        'accessToken': 'pk.eyJ1IjoiamFzbGllYiIsImEiOiJjazdoYmR4emswN3lqM2RvMmllazYycndwIn0.Qx1nAJgFvfA4uCb0-YlYLQ',
-                        'id': 'mapbox.streets',
-                      },
-                    ),
-                    MarkerLayerOptions(markers: markers)
-                  ],
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Text(position.getCoordinateSentence()),
                 ),
-              ),
-            ],
-          ),
-        );
+                Row(
+                  children: [ 
+                    ToggleButtons(
+                      children: <Widget>[
+                        Icon(Icons.info_outline)
+                      ],
+                      onPressed: (_) => _mapBloc..add(MapShowPointsEvent(!state.pointsAreVisible)), 
+                      isSelected: [state.pointsAreVisible],
+                  ),]
+                ),
+                Flexible(
+                  child: FlutterMap(
+                    options: MapOptions(
+                      center: LatLng(43.60444832310661, 1.4433717727661133),
+                      onLongPress: _handleLongPress,
+                      nePanBoundary: LatLng(43.72049745570917, 1.522979736328125),
+                      swPanBoundary: LatLng(43.46089378008257, 1.3128662109375)
+                    ),
+                    layers: [
+                      new TileLayerOptions(
+                        urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                            "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                        additionalOptions: {
+                          'accessToken': 'pk.eyJ1IjoiamFzbGllYiIsImEiOiJjazdoYmR4emswN3lqM2RvMmllazYycndwIn0.Qx1nAJgFvfA4uCb0-YlYLQ',
+                          'id': 'mapbox.streets',
+                        },
+                      ),
+                      MarkerLayerOptions(markers: markers)
+                    ],
+                  ),
+                ),
+              ]
+            ),
+          );
         },
       )
     );

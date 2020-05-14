@@ -43,8 +43,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     var res = client.getRequest('points/');
     res.then((value) {
       var points = value.data;
-      List<InterestPoint> posts = List.from(points).map((dynamic model)=> InterestPoint.fromJson(model)).toList();
-      this.interestPoints =posts.map((e) => e.location).toList();
+      this.interestPoints = List.from(points).map(
+          (dynamic model) => InterestPoint.fromJson(model).location
+        )
+        .toList();
+        
       this.add(MapMakeStateEvent());
     });
   }
